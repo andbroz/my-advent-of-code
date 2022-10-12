@@ -1,0 +1,12 @@
+// https://github.com/jest-community/vscode-jest/blob/master/README.md#how-to-use-the-test-explorer
+{
+  "jest.shell": "powershell",
+  "jest.debugMode": false,
+  "jest.autoRun": "off",
+  "jest.rootPath": "./src",
+  "jest.jestCommandLine": "npm test --",
+  "jest.testExplorer": {
+    "enabled": true,
+    "showInlineError": "true"
+  }
+}
