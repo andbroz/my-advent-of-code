@@ -1,14 +1,16 @@
-import * as path from 'https://deno.land/std@0.156.0/path/mod.ts';
-const inputFilename = 'input.data.txt';
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
 
-const file = path.join(Deno.cwd(), 'Day-01', inputFilename);
+const inputFilename = "input.data.txt";
 
-console.log(file);
+const file = path.join(__dirname, inputFilename);
 
 async function sonar(filePath: string) {
-  const inputData = await Deno.readTextFile(filePath);
+  const inputData = await fs.readFile(filePath, { encoding: "utf-8" });
 
-  const arrData = inputData.split('\n').map((strVal) => Number.parseInt(strVal));
+  const arrData = inputData
+    .split("\n")
+    .map((strVal) => Number.parseInt(strVal));
 
   const increasesCount = countDepthIncreaseFromPrevious(arrData);
 
@@ -20,20 +22,20 @@ async function sonar(filePath: string) {
 function countDepthIncreaseFromPrevious(data: number[]): number {
   const result = data.map((val, i, arr) => {
     if (i === 0) {
-      return 'n/a';
+      return "n/a";
     }
 
     const depthChange = val - arr[i - 1];
     if (depthChange > 0) {
-      return 'inc';
+      return "inc";
     } else if (depthChange === 0) {
-      return 'zero';
+      return "zero";
     }
-    return 'dec';
+    return "dec";
   });
 
   return result.reduce((acc, val) => {
-    if (val === 'inc') {
+    if (val === "inc") {
       return acc + 1;
     }
     return acc;
@@ -55,6 +57,4 @@ function slidingWindowIncreaseCount(data: number[]): number {
   return countDepthIncreaseFromPrevious(windowSumData);
 }
 
-console.time('test');
 sonar(file);
-console.timeEnd('test');
