@@ -1,11 +1,33 @@
-import { solvePartOne, solvePartTwo } from './solver';
+import { findErrorsInRuckSack, solvePartOne, solvePartTwo } from './solver';
 
-describe('Day X', () => {
+describe('Day 3', () => {
   let input = [] as string[];
 
   beforeEach(() => {
-    input = [];
+    input = [
+      'vJrwpWtwJgWrhcsFMMfFFhFp',
+      'jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL',
+      'PmmdzqPrVvPwwTWBwg',
+      'wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn',
+      'ttgJtRGJQctTZtZT',
+      'CrZsJsPPZsGzwwsLwLmpwMDw',
+    ];
   });
-  test('solve part one', () => {});
-  test('solve part two', () => {});
+  test('find errors in rucksack', () => {
+    const result = findErrorsInRuckSack(input);
+
+    expect(result).toEqual(['p', 'L', 'P', 'v', 't', 's']);
+  });
+
+  test('solve part one', () => {
+    const sumOfPriorities = solvePartOne(input);
+
+    expect(sumOfPriorities).toBe(157);
+  });
+
+  test('solve part two', () => {
+    const sumOfPriorities = solvePartTwo(input);
+
+    expect(sumOfPriorities).toBe(70);
+  });
 });
