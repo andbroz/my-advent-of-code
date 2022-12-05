@@ -30,7 +30,35 @@ export function solvePartOne(input: string[]) {
   return topOfStacks.join('');
 }
 
-export function solvePartTwo() {}
+export function solvePartTwo(input: string[]) {
+  const { stacks, procedure } = readStacksAndProcedure(input);
+
+  for (const operation of procedure) {
+    const source = stacks.get(operation.from);
+    const target = stacks.get(operation.to);
+
+    if (!source || !target) {
+      continue;
+    }
+
+    const crates = source.splice(-operation.move);
+
+    if (crates) {
+      target.push(...crates);
+    }
+  }
+
+  const topOfStacks: string[] = [];
+
+  stacks.forEach(stack => {
+    const crate = stack.pop();
+    if (crate) {
+      topOfStacks.push(crate);
+    }
+  });
+
+  return topOfStacks.join('');
+}
 
 export function readStacksAndProcedure(input: string[]) {
   const splitIndex = input.findIndex(value => value === '');

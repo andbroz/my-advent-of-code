@@ -55,5 +55,9 @@ describe('Day X', () => {
 
     expect(result).toBe('CMZ');
   });
-  test('solve part two', () => {});
+  test('solve part two', () => {
+    const result = solvePartTwo(input);
+
+    expect(result).toBe('MCD');
+  });
 });
