@@ -5,8 +5,8 @@ import { solvePartOne, solvePartTwo } from './solver';
 const fileName = 'input.txt';
 const filePath = path.join(__dirname, fileName);
 
-(async () => {
-  console.info('Camp Cleanup');
+async function solve() {
+  console.info('--- Day 5: Supply Stacks ---');
 
   const inputData = await readFile(filePath);
 
@@ -21,4 +21,6 @@ const filePath = path.join(__dirname, fileName);
     'After the rearrangement procedure completes, what crate ends up on top of each stack ?',
   );
   console.log('Result part two:', resultTwo); // answer BPCZJLFJW
-})();
+}
+
+solve();

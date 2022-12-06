@@ -1,3 +1,7 @@
-export function solvePartOne() {}
+export function solvePartOne(input: string[]) {
+  return 'To be implemented';
+}
 
-export function solvePartTwo() {}
+export function solvePartTwo(input: string[]) {
+  return 'To be implemented';
+}

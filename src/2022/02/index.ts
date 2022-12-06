@@ -5,7 +5,8 @@ import { parseStrategy, parseStrategyTwo } from './d2';
 const fileName = 'input.txt';
 const filePath = path.join(__dirname, fileName);
 
-(async () => {
+async function solve() {
+  console.info('--- Day 2: Rock Paper Scissors ---');
   const inputData = await readFile(filePath);
 
   const parsed = parseStrategy(inputData);
@@ -19,4 +20,6 @@ const filePath = path.join(__dirname, fileName);
   const resultTwo = parsedTwo.reduce((acc, round) => acc + round.roundScore, 0);
 
   console.log('total score for second strategy:', resultTwo);
-})();
+}
+
+solve();

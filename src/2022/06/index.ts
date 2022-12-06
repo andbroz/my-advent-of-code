@@ -6,7 +6,7 @@ const fileName = 'input.txt';
 const filePath = path.join(__dirname, fileName);
 
 async function solve() {
-  console.info('Day 6: Tuning Trouble');
+  console.info('--- Day 6: Tuning Trouble ---');
   const inputData = await readFile(filePath);
 
   const resultOne = solvePartOne(inputData);

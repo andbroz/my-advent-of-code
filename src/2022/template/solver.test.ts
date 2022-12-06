@@ -6,6 +6,14 @@ describe('Day X', () => {
   beforeEach(() => {
     input = [];
   });
-  test('solve part one', () => {});
-  test('solve part two', () => {});
+  test('solve part one', () => {
+    const result = solvePartOne(input);
+
+    expect(result).toEqual('To be implemented');
+  });
+  test('solve part two', () => {
+    const result = solvePartTwo(input);
+
+    expect(result).toEqual('To be implemented');
+  });
 });

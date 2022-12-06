@@ -9,7 +9,8 @@ import {
 const fileName = 'input.txt';
 const filePath = path.join(__dirname, fileName);
 
-(async () => {
+async function solve() {
+  console.info('--- Day 1: Calorie Counting ---');
   const inputData = await readFile(filePath);
 
   const splitted = splitCaloriesByElves(inputData);
@@ -20,8 +21,10 @@ const filePath = path.join(__dirname, fileName);
 
   // How many total Calories is that Elf carrying?
   // 70296 is correct
+
   console.log(elfWithMostCalories);
-  console.log({ topThree, topThreeTotal });
+  console.table(topThree);
+  console.info({ topThree: JSON.stringify(topThree), topThreeTotal });
 
   //   {
   //   topThree: [
@@ -31,4 +34,6 @@ const filePath = path.join(__dirname, fileName);
   //   ],
   //   topThreeTotal: 205381
   // }
-})();
+}
+
+solve();
