@@ -48,7 +48,93 @@ export function solvePartOne(input: string[]) {
 }
 
 export function solvePartTwo(input: string[]) {
-  return 'To be implemented';
+  const forest = input.map(row => [...row]);
+
+  const allTreesScenicScores = forest.reduce((scenicScoresArr, treeRow, rowIndex, trees) => {
+    let rowScenicScores: number[] = [];
+
+    const leftEdgeIndex = 0;
+    const rightEdgeIndex = treeRow.length - 1;
+    const topEdgeIndex = 0;
+    const bottomEdgeIndex = trees.length - 1;
+
+    for (const [colIndex, tree] of treeRow.entries()) {
+      // check visibility from left
+      const { distance: viewDistanceLeft } = treeRow
+        .slice(leftEdgeIndex, colIndex)
+        .reverse()
+        .reduce(
+          (view, val) => {
+            if (view.isBlocked) {
+              return view;
+            }
+
+            if (Number.parseInt(val) >= Number.parseInt(tree)) {
+              return { ...view, distance: view.distance + 1, isBlocked: true };
+            }
+
+            return { ...view, distance: view.distance + 1 };
+          },
+          { distance: 0, isBlocked: false },
+        );
+
+      const { distance: viewDistanceRight } = treeRow.slice(colIndex + 1).reduce(
+        (view, val) => {
+          if (view.isBlocked) {
+            return view;
+          }
+
+          if (Number.parseInt(val) >= Number.parseInt(tree)) {
+            return { ...view, distance: view.distance + 1, isBlocked: true };
+          }
+
+          return { ...view, distance: view.distance + 1 };
+        },
+        { distance: 0, isBlocked: false },
+      );
+
+      const { treesAbove, treeBelow } = getTreesAboveBelow(forest, rowIndex, colIndex);
+
+      const { distance: viewDistanceTop } = treesAbove.reverse().reduce(
+        (view, val) => {
+          if (view.isBlocked) {
+            return view;
+          }
+
+          if (Number.parseInt(val) >= Number.parseInt(tree)) {
+            return { ...view, distance: view.distance + 1, isBlocked: true };
+          }
+
+          return { ...view, distance: view.distance + 1 };
+        },
+        { distance: 0, isBlocked: false },
+      );
+
+      const { distance: viewDistanceBottom } = treeBelow.reduce(
+        (view, val) => {
+          if (view.isBlocked) {
+            return view;
+          }
+
+          if (Number.parseInt(val) >= Number.parseInt(tree)) {
+            return { ...view, distance: view.distance + 1, isBlocked: true };
+          }
+
+          return { ...view, distance: view.distance + 1 };
+        },
+        { distance: 0, isBlocked: false },
+      );
+
+      const scenicScore =
+        viewDistanceLeft * viewDistanceRight * viewDistanceTop * viewDistanceBottom;
+
+      rowScenicScores.push(scenicScore);
+    }
+
+    return [...scenicScoresArr, ...rowScenicScores];
+  }, [] as number[]);
+
+  return Math.max(...allTreesScenicScores);
 }
 
 function getTreesAboveBelow(forest: string[][], rowIndex: number, colIndex: number) {

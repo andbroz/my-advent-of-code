@@ -14,6 +14,6 @@ describe('Day 8', () => {
   test('solve part two', () => {
     const result = solvePartTwo(input);
 
-    expect(result).toEqual('To be implemented');
+    expect(result).toEqual(8);
   });
 });
