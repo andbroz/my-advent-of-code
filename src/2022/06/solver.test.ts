@@ -1,6 +1,6 @@
 import { solvePartOne, solvePartTwo } from './solver';
 
-describe('Day X', () => {
+describe('Day 6', () => {
   let input = [] as string[];
 
   beforeEach(() => {

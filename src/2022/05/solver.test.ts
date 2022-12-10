@@ -1,6 +1,6 @@
 import { readStacksAndProcedure, solvePartOne, solvePartTwo } from './solver';
 
-describe('Day X', () => {
+describe('Day 5', () => {
   let input = [] as string[];
 
   beforeEach(() => {
