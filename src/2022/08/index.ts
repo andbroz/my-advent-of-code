@@ -12,7 +12,7 @@ async function solve() {
   const resultOne = solvePartOne(inputData);
   const resultTwo = solvePartTwo(inputData);
 
-  console.log('Result part one:', resultOne); //answer ...
+  console.log('Result part one:', resultOne); //answer 1823
   console.log('Result part two:', resultTwo); //answer ...
 }
 
