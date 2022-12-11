@@ -14,6 +14,13 @@ describe('Day 9', () => {
   test('solve part two', () => {
     const result = solvePartTwo(input);
 
-    expect(result).toEqual('To be implemented');
+    expect(result).toEqual(1);
+  });
+
+  test('solve part two', () => {
+    const data = ['R 5', 'U 8', 'L 8', 'D 3', 'R 17', 'D 10', 'L 25', 'U 20'];
+    const result = solvePartTwo(data);
+
+    expect(result).toEqual(36);
   });
 });

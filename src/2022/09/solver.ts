@@ -32,7 +32,7 @@ export function solvePartOne(moves: string[]) {
       }
 
       // determine tail movements direction
-      makeTailMovement(currentTailPosition, distance, direction);
+      makeTailMovement(currentTailPosition, distance);
 
       if (!visitedPositions.get(JSON.stringify(currentTailPosition))) {
         visitedPositions.set(JSON.stringify(currentTailPosition), { visited: true });
@@ -43,8 +43,59 @@ export function solvePartOne(moves: string[]) {
   return visitedPositions.size;
 }
 
-export function solvePartTwo(input: string[]) {
-  return 'To be implemented';
+export function solvePartTwo(moves: string[]) {
+  const visitedPositions = new Map<string, { visited: boolean }>();
+
+  const rope: Position[] = [
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+    { row: 0, col: 0 },
+  ];
+
+  const tailPosition = rope.length - 1;
+
+  visitedPositions.set(JSON.stringify(rope[tailPosition]), { visited: true });
+
+  for (const currentMove of moves) {
+    const [direction, stepsStr] = currentMove.split(' ');
+    const steps = Number.parseInt(stepsStr);
+
+    // move head number of steps
+    for (let step = 0; step < steps; step++) {
+      // head
+      makeOneStep(rope[0], direction);
+
+      for (let knot = 1; knot < rope.length; knot++) {
+        // calculate distance
+        const distance: Position = {
+          row: rope[knot - 1].row - rope[knot].row,
+          col: rope[knot - 1].col - rope[knot].col,
+        };
+
+        // check if tail needs to move
+        if (Math.abs(distance.row) < 2 && Math.abs(distance.col) < 2) {
+          // no move
+          continue;
+        }
+
+        // determine tail movements direction
+        makeTailMovement(rope[knot], distance);
+
+        if (!visitedPositions.get(JSON.stringify(rope[tailPosition]))) {
+          visitedPositions.set(JSON.stringify(rope[tailPosition]), { visited: true });
+        }
+      }
+    }
+  }
+
+  return visitedPositions.size;
 }
 
 function makeOneStep(currentPosition: Position, direction: string): void {
@@ -70,7 +121,11 @@ function makeOneStep(currentPosition: Position, direction: string): void {
   }
 }
 
-function makeTailMovement(tailPosition: Position, distance: Position, headDirection: string) {
+function makeTailMovement(tailPosition: Position | undefined, distance: Position) {
+  if (!tailPosition) {
+    throw new Error('No tail position');
+  }
+
   if (distance.row === 0) {
     const sign = distance.col / Math.abs(distance.col);
     tailPosition.col = tailPosition.col + sign;
@@ -87,37 +142,4 @@ function makeTailMovement(tailPosition: Position, distance: Position, headDirect
     tailPosition.col = tailPosition.col + signCol;
     tailPosition.row = tailPosition.row + signRow;
   }
-
-  // switch (headDirection) {
-  //   case 'R': {
-  //     tailPosition.col += distance.col - 1;
-  //     if (distance.row !== 0) {
-  //       tailPosition.row += distance.row;
-  //     }
-  //     break;
-  //   }
-  //   case 'L': {
-  //     tailPosition.col += distance.col + 1;
-  //     if (distance.row !== 0) {
-  //       tailPosition.row += distance.row;
-  //     }
-  //     break;
-  //   }
-  //   case 'U': {
-  //     tailPosition.row += distance.row + 1;
-  //     if (distance.col !== 0) {
-  //       tailPosition.col += distance.col;
-  //     }
-  //     break;
-  //   }
-  //   case 'D': {
-  //     tailPosition.row += distance.row + 1;
-  //     if (distance.col !== 0) {
-  //       tailPosition.col += distance.col;
-  //     }
-  //     break;
-  //   }
-  //   default:
-  //     throw new Error('Unknown direction to move');
-  // }
 }
